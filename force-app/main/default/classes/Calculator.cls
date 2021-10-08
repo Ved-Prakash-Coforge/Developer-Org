@@ -11,4 +11,7 @@ public with sharing class Calculator {
     public Integer sub(Integer a, Integer b){
         return a - b;
     }
+    public Integer add(Integer a, Integer b){
+        return a+b;
+    }
 }
