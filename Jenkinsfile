@@ -60,14 +60,15 @@ node {
 		def deploymentId = ''
 		if(rmsg.contains('Successfully validated the deployment')){
 			String[] resultArray = rmsg.split('Deploy ID:');
+			println(resultArray)
 			if(resultArray.size() > 0){
 				resultArray = resultArray[1].split('Successfully validated the deployment');
-				
+				println(resultArray)
 				if(resultArray.size() > 0){
 					deploymentId = resultArray[0];
 				}
 			}
-			
+			println(deploymentId)
 			// need to pull out assigned username
 			if (isUnix() && deploymentId != '') {
 				//rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d manifest/. -u ${HUB_ORG}"
