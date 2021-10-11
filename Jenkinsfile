@@ -29,7 +29,7 @@ node {
                 rc = sh returnStatus: true, script: "${toolbelt} auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
             }else{
 		    //bat "${toolbelt} plugins:install salesforcedx@49.5.0"
-		    bat "${toolbelt} update"
+		    //bat "${toolbelt} update" --commented by Ved as right now update is not required
 		    //bat "${toolbelt} auth:logout -u ${HUB_ORG} -p" 
                  rc = bat returnStatus: true, script: "${toolbelt} auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --loglevel DEBUG --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
             }
@@ -56,9 +56,9 @@ node {
 			//validate the build to deploy
 			println 'validation inprogress......'
 			if (isUnix()) {
-				rmsg = bat returnStdout: true, script: "${toolbelt} force:source:deploy -x manifest/package.xml -l RunAllTestsInOrg -c ${HUB_ORG}"
+				rmsg = bat returnStdout: true, script: "${toolbelt} force:source:deploy -x manifest/package.xml -l RunAllTestsInOrg -c"
 			}else{
-				rmsg = bat returnStdout: true, script: "${toolbelt} force:source:deploy -x manifest/package.xml -l RunAllTestsInOrg -c ${HUB_ORG}"
+				rmsg = bat returnStdout: true, script: "${toolbelt} force:source:deploy -x manifest/package.xml -l RunAllTestsInOrg -c"
 			}
 			  
             printf rmsg
