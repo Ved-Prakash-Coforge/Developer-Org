@@ -57,7 +57,7 @@ node {
             println('Hello from a Job DSL script!')
             println(rmsg)
 		
-		if(rmsg.contains('SUCCESS')){
+		if(rmsg.contains('Successfully validated the deployment')){
 			// need to pull out assigned username
 			if (isUnix()) {
 				//rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d manifest/. -u ${HUB_ORG}"
