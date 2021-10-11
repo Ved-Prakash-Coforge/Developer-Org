@@ -56,12 +56,17 @@ node {
 			//validate the build to deploy
 			println 'validation inprogress......'
 			if (isUnix()) {
-				rmsg = bat returnStdout: true, script: "${toolbelt} force:source:deploy -x manifest/package.xml -l RunAllTestsInOrg -c -u ${HUB_ORG}"
+				rmsg = script: "${toolbelt} force:source:deploy -x manifest/package.xml -l RunAllTestsInOrg -c -u ${HUB_ORG}"
 			}else{
-				rmsg = bat returnStdout: true, script: "${toolbelt} force:source:deploy -x manifest/package.xml -l RunAllTestsInOrg -c -u ${HUB_ORG}"
+				rmsg = script: "${toolbelt} force:source:deploy -x manifest/package.xml -l RunAllTestsInOrg -c -u ${HUB_ORG}"
 			}
 			  
             printf rmsg
+            println('Hello from a Job DSL script!')
+            println(rmsg)
+		
+	    println('-------------Temp-------------------')
+	    printf rmsg
             println('Hello from a Job DSL script!')
             println(rmsg)
         }
