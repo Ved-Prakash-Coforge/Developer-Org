@@ -57,16 +57,30 @@ node {
             println('Hello from a Job DSL script!')
             println(rmsg)
 		
+		def deploymentId = ''
 		if(rmsg.contains('Successfully validated the deployment')){
+			String[] resultArray = rmsg.split('Deploy ID:');
+			if(resultArray.size() > 0){
+				resultArray = resultArray[1].split('Successfully validated the deployment');
+				
+				if(resultArray.size() > 0){
+					deploymentId = resultArray[0];
+				}
+			}
+			
 			// need to pull out assigned username
-			if (isUnix()) {
+			if (isUnix() && deploymentId != '') {
 				//rmsg = sh returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d manifest/. -u ${HUB_ORG}"
-				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy -x manifest/package.xml -u ${HUB_ORG}"
+				//rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy -x manifest/package.xml -u ${HUB_ORG}"
+				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy -q ${deploymentId} -u ${HUB_ORG}"
 			}else{
-				rmsg = bat returnStdout: true, script: "${toolbelt} force:source:deploy -x manifest/package.xml -u ${HUB_ORG}"
+				//rmsg = bat returnStdout: true, script: "${toolbelt} force:source:deploy -x manifest/package.xml -u ${HUB_ORG}"
 			   	//rmsg = bat returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d manifest/. -u ${HUB_ORG}"
+				rmsg = sh returnStdout: true, script: "${toolbelt} force:source:deploy -q ${deploymentId} -u ${HUB_ORG}"
 			}
 		}
+		println('Source deployed in org')
+		println(rmsg)
         }
     }
 }
