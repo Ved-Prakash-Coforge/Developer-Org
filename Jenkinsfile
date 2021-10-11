@@ -65,7 +65,7 @@ node {
 				resultArray = resultArray[1].split('Successfully validated the deployment');
 				println(resultArray)
 				if(resultArray.size() > 0){
-					deploymentId = resultArray[0];
+					deploymentId = (resultArray[0]).substring(1,18);
 				}
 			}
 			println(deploymentId)
@@ -77,7 +77,7 @@ node {
 			}else{
 				//rmsg = bat returnStdout: true, script: "${toolbelt} force:source:deploy -x manifest/package.xml -u ${HUB_ORG}"
 			   	//rmsg = bat returnStdout: true, script: "${toolbelt} force:mdapi:deploy -d manifest/. -u ${HUB_ORG}"
-				rmsg = bat returnStdout: true, script: "${toolbelt} force:source:deploy -q ${deploymentId} -u vprakash28jan89@gmail.com.new"
+				rmsg = bat returnStdout: true, script: "${toolbelt} force:source:deploy -q ${deploymentId} -u ${HUB_ORG}"
 			}
 		}
 		println('Source deployed in org')
