@@ -65,7 +65,7 @@ node {
 				resultArray = resultArray[1].split('Successfully validated the deployment');
 				println(resultArray)
 				if(resultArray.size() > 0){
-					deploymentId = (resultArray[0]).substring(1,18);
+					deploymentId = (resultArray[0]).substring(1,19);
 				}
 			}
 			println(deploymentId)
