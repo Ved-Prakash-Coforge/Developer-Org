@@ -9,7 +9,7 @@
     <aura:attribute name="RecordEnd" type="integer" default="0"/>
      
     <div class="slds-m-around_xx-large">
-        <h1 class="slds-text-heading--medium">Contacts</h1>
+        <h1 class="slds-text-heading--medium">Contacts to Ved</h1>
         <br/>
         <div class="slds-float_right">
             <ui:inputSelect aura:id="pageSize" label="Display Records Per Page: " change="{!c.onSelectChange}">

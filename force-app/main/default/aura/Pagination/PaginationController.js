@@ -1,6 +1,6 @@
 ({
     doInit: function(component, event, helper) {
-        
+        // ved comments added
         var pageNumber = component.get("v.PageNumber");  
         var pageSize = component.find("pageSize").get("v.value"); 
         helper.getContactList(component, pageNumber, pageSize);
