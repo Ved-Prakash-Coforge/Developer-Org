@@ -49,9 +49,7 @@ node {
 			if (isUnix()) {
 				rmsg = bat returnStdout: true, script: "${toolbelt} force:source:deploy -x manifest/package.xml -l RunAllTestsInOrg -c -u ${HUB_ORG}"
 			}else{
-				$ git diff master feature/vat | "${toolbelt} force-dev-tool changeset create vat"
-				//rmsg = bat returnStdout: true, script: "${toolbelt} force:source:deploy -x manifest/package.xml -l RunAllTestsInOrg -c -u ${HUB_ORG}"
-				rmsg = bat returnStdout: true, script: "${toolbelt} force:source:deploy -x config/deployments/vat -l RunAllTestsInOrg -c -u ${HUB_ORG}"
+				rmsg = bat returnStdout: true, script: "${toolbelt} force:source:deploy -x manifest/package.xml -l RunAllTestsInOrg -c -u ${HUB_ORG}"
 			}
 		
 	    println('-------------Temp-------------------')
