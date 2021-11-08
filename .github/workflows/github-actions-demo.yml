@@ -36,7 +36,7 @@ jobs:
         CLIENT_ID: ${{ secrets.SALESFORCEPRODCLIENTID }}
         USERNAME: ${{ secrets.SALESFORCEPRODUSERNAME }}
         INSTANCE_URL: ${{ secrets.SALESFORCEPRODINSTANCEURL }}
-      run: sfdx auth:jwt:grant --clientid $CLIENT_ID --username $USERNAME --jwtkeyfile ./server.key --instanceurl $INSTANCE_URL
+      run: sfdx auth:jwt:grant --clientid 3MVG9d8..z.hDcPKaKPNueKXI.ft27IgIDFIryj4pMvAaCFDRwXn6dMue30fQubLC7zkXP9IIip3O7gC6SgaM --username vprakash28jan89@gmail.com.new --jwtkeyfile ./server.key --instanceurl https://login.salesforce.com
 
     # Convert to Deploy Source
     - name: Convert to Deploy Source
