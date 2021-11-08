@@ -25,10 +25,6 @@ jobs:
     # Setup Node
     - name: Setup Node
       uses: actions/setup-node@v1
-    
-    # Install SFDX CLI
-    - name: Install SFDX CLI
-      run: npm install sfdx-cli --global
 
     # Authorize SF Org
     - name: Authorize SF Org
