@@ -22,6 +22,10 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
+    # Install SFDX CLI
+    - name: Install SFDX CLI
+      run: npm install sfdx-cli --global
+      
     # Setup Node
     - name: Setup Node
       uses: actions/setup-node@v1
