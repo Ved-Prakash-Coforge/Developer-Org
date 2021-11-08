@@ -1,17 +1,27 @@
-name: GitHub Actions Demo
-on: [push]
+name: deploy-to-developer-org
+on: [push]   
 jobs:
-  Explore-GitHub-Actions:
+  deploy-to-developer-org:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    container:
+      image: https://www.salesforce.com/content/dam/sfdc-docs/www/logos/logo-salesforce.svg
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
+      - name: Checkout source code
         uses: actions/checkout@v2
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
+      - name: Authorise devhub org
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+          DEVHUB_USERNAME='vprakash28jan89@gmail.com.new'
+          CONSUMER_KEY='3MVG9d8..z.hDcPKaKPNueKXI.ft27IgIDFIryj4pMvAaCFDRwXn6dMue30fQubLC7zkXP9IIip3O7gC6SgaM'
+          sfdx auth:jwt:grant -u $DEVHUB_USERNAME -i $CONSUMER_KEY -f ./server.key -r https://login.salesforce.com -a DevHub -d
+      - name: Authorise qa org
+        run: |
+           DEVHUB_USERNAME='vprakash28jan89@gmail.com.new'
+           CONSUMER_KEY_QA='3MVG9d8..z.hDcPKaKPNueKXI.ft27IgIDFIryj4pMvAaCFDRwXn6dMue30fQubLC7zkXP9IIip3O7gC6SgaM'
+           sfdx auth:jwt:grant -u $DEVHUB_USERNAME.qa -i $CONSUMER_KEY_QA -f ./server.key -r https://login.salesforce.com -a qa -d         
+      - name: Create scratch org
+        run: sfdx force:org:create -f orgs/dev.json -s -a featureScratch -v DevHub --setdefaultusername --wait 15
+      - name: Deploy before deployment metadata
+        run: sfdx force:source:deploy -x manifest/package.xml -w 3
+      - name: Push code to scratch org
+        run: sfdx force:source:push -u featureScratch
